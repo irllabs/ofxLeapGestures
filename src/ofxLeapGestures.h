@@ -11,11 +11,16 @@ class LeapWrapperThread : public ofThread {
 public:
     
     GetLeapWrapper *leapWrapper;
-    bool classify;
+    
+    enum LGMode {
+        CLASSIFY,
+        RECORD_SAMPLES
+    };
+    LGMode mode;
+    int currentClassID;
     
     void init() {
         leapWrapper = new GetLeapWrapper(false);
-        classify = false;
     }
     
     void stopInput() {
@@ -27,8 +32,12 @@ public:
         
         while(isThreadRunning()) {
             
-            leapWrapper->setRealtimeMode(classify);
-            leapWrapper->setCurrentClassID(0);
+            if(mode == CLASSIFY) {
+                leapWrapper->setRealtimeMode(true);
+            }
+            if(mode == RECORD_SAMPLES) {
+                leapWrapper->setCurrentClassID(false);
+            }
             
             leapWrapper->stopped = false;
             leapWrapper->getInput();
@@ -50,7 +59,19 @@ private:
     
 public:
     
+    void setup(bool classifyMode);
     
+    void setMode(LeapWrapperThread::LGMode mode);
+    void setClassID(int id);
+    
+    void startRecording();
+    void stopRecording();
+    
+    void trainAndClassify();
+    
+    void cleanup();
+    
+    bool isRecording();
     
 };
 

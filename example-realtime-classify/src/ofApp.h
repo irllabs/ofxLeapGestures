@@ -12,5 +12,7 @@ class ofApp : public ofBaseApp{
 
 		void keyReleased(int key);
         void exit();
+    
+        ofxLeapGestures leapGestures;
 		
 };
