@@ -9,10 +9,12 @@ class MyThread : public ofThread {
 public:
     
     GetLeapWrapper *wrapper;
+    bool classify;
     
     void init() {
         
         wrapper = new GetLeapWrapper(false);
+        classify = false;
         
     }
     
@@ -29,8 +31,7 @@ public:
         
         while(isThreadRunning()) {
             
-            wrapper->setRealtimeMode(false);
-            //wrapper->connectStatusLabelCallback(statusLabelCallback);
+            wrapper->setRealtimeMode(classify);
             wrapper->setCurrentClassID(0);
             
             wrapper->getInput();

@@ -173,16 +173,15 @@ void BeckonListener::processFeature(vector<LeapMotionFeature*> features, bool re
     // For mode 1, apply classification
     if (realtime) {
         HMM hmm;
-        if( !hmm.loadModelFromFile(baseDir + "Model/HMMModel.grt") ){
+        if( !hmm.loadModelFromFile(ofToDataPath("Model/HMMModel.grt")) ){
             cout << "Failed to load the classifier model!\n";
         }
         else {
             hmm.predict(sequence);
             int res = hmm.getPredictedClassLabel();
             
-            //std::cout << "The result is: " << res << std::endl;
+            std::cout << "The result is: " << res << std::endl;
             //this->statusLabelCallback("Recognition result: " + ofToString(res));
-            this->statusString = "The result is: " + ofToString(res);
             
             //Send result via OSC
             UdpTransmitSocket transmitSocket( IpEndpointName( ADDRESS, PORT ) );
@@ -206,16 +205,15 @@ void BeckonListener::processFeature(vector<LeapMotionFeature*> features, bool re
         }
         
         data.addSample(classID, sequence);
-        //std::cout << dataSampleSize + 1 << " samples in dataset" << std::endl;
+        std::cout << dataSampleSize + 1 << " samples in dataset" << std::endl;
         //this->statusLabelCallback(ofToString(dataSampleSize + 1) + " Samples recorded");
-        this->statusString = ofToString(dataSampleSize + 1) + " samples in dataset";
         
         // When it reaches the number of files to record, save to file
         if (dataSampleSize >= (trainingSampleSize - 1)) {
             std::cout << "Saved to file!" << endl;
             char fileName[80];
             std::sprintf(fileName, "Training/class_%d.txt", classID);
-            data.saveDatasetToFile(baseDir + fileName);
+            data.saveDatasetToFile(ofToDataPath(fileName));
             data.clear();
         }
     }

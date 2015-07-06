@@ -7,21 +7,39 @@ void ofApp::setup(){
     worker = new GRTBot();
     recording = false;
     
+    ofLog() << ofToDataPath("wow");
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    ofLog() << thread.wrapper->getStatusString();
+    
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 
+    ofSetColor(0,0,0);
+    ofDrawBitmapString(thread.wrapper->getStatusString(), 100, 100);
+    
+    if(thread.classify) {
+        ofDrawBitmapString("classify mode", 100, 120);
+    } else {
+        ofDrawBitmapString("recording mode", 100, 120);
+    }
+    ofDrawBitmapString("'t' to change mode", 100, 140);
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+    if(key == 't') {
+        thread.classify = !thread.classify;
+    }
+    
 }
 
 //--------------------------------------------------------------
