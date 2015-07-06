@@ -11,6 +11,7 @@
 
 
 #include "Global.h"
+#include "ofMain.h"
 
 class GRTBot {
 public:

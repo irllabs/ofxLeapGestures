@@ -12,21 +12,25 @@ int GRTBot::trainAndClassify() {
     //Get all the training data, and concat to one file
     vector<string> dataFiles;
    
-    DIR* dirFile = opendir( (baseDir + "Training/").c_str() );
+    DIR* dirFile = opendir( (ofToDataPath("Training/")).c_str() );
     if ( dirFile )
     {
+        ofLog() << "ddd";
+        
         struct dirent* hFile;
         errno = 0;
         while (( hFile = readdir( dirFile )) != NULL )
         {
+            ofLog() << "eee";
+            
             if ( !strcmp( hFile->d_name, "."  )) continue;
             if ( !strcmp( hFile->d_name, ".." )) continue;
             
             // dirFile.name is the name of the file. Do whatever string comparison
             // you want here. Something like:
             if ( strstr( hFile->d_name, ".txt" )) {
-                printf( "found an .txt file: %s", hFile->d_name );
-                dataFiles.push_back(baseDir + "Training/" + hFile->d_name);
+                printf( "found a .txt file: %s", hFile->d_name );
+                dataFiles.push_back(ofToDataPath("Training/") + hFile->d_name);
             }
         } 
         closedir( dirFile );
@@ -86,13 +90,13 @@ int GRTBot::trainAndClassify() {
     }
     
     //Save the HMM model to a file
-    if( !hmm.save( baseDir + "Model/HMMModel.grt" ) ){
+    if( !hmm.save( ofToDataPath("Model/HMMModel.grt") ) ){
         cout << "ERROR: Failed to save the model to a file!\n";
         return false;
     }
     
     //Load the HMM model from a file
-    if( !hmm.load( baseDir + "Model/HMMModel.grt" ) ){
+    if( !hmm.load( ofToDataPath("Model/HMMModel.grt") ) ){
         cout << "ERROR: Failed to load the model from a file!\n";
         return false;
     }

@@ -22,6 +22,8 @@ public:
     void connectStatusLabelCallback(void (^ myBlock) (string));
     GetLeapWrapper(bool realTime);
     string getStatusString();
+    
+    bool stopped;
 
 private:
     BeckonListener listener;

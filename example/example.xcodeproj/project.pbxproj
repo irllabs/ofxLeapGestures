@@ -25,6 +25,7 @@
 		DF0D899D1B4ACB9A00310672 /* GetLeapWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF0D899B1B4ACB9A00310672 /* GetLeapWrapper.cpp */; };
 		DF0D89A01B4ACBCD00310672 /* GRTLeapInput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF0D899E1B4ACBCD00310672 /* GRTLeapInput.cpp */; };
 		DF0D89A31B4ACC3900310672 /* BeckonPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF0D89A11B4ACC3900310672 /* BeckonPrimitive.cpp */; };
+		DF0D89A71B4B11ED00310672 /* ofxLeapGestures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF0D89A51B4B11ED00310672 /* ofxLeapGestures.cpp */; };
 		DFE900001B45D0130040EF11 /* PostProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FF2D1B45D0130040EF11 /* PostProcessing.cpp */; };
 		DFE900011B45D0130040EF11 /* PreProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FF2F1B45D0130040EF11 /* PreProcessing.cpp */; };
 		DFE900021B45D0130040EF11 /* Regressifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FF311B45D0130040EF11 /* Regressifier.cpp */; };
@@ -87,7 +88,6 @@
 		DFE9003E1B45D6C00040EF11 /* GRTBot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9003C1B45D6C00040EF11 /* GRTBot.cpp */; };
 		DFE9FE951B45D00F0040EF11 /* ofxLeapMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FE7D1B45D00F0040EF11 /* ofxLeapMotion.cpp */; };
 		DFE9FE961B45D00F0040EF11 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DFE9FE891B45D00F0040EF11 /* libLeap.dylib */; };
-		DFE9FFD11B45D0130040EF11 /* ofxLeapMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FE991B45D0130040EF11 /* ofxLeapMotion.cpp */; };
 		DFE9FFD21B45D0130040EF11 /* AdaBoost.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FE9E1B45D0130040EF11 /* AdaBoost.cpp */; };
 		DFE9FFD31B45D0130040EF11 /* DecisionStump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FEA21B45D0130040EF11 /* DecisionStump.cpp */; };
 		DFE9FFD41B45D0130040EF11 /* RadialBasisFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFE9FEA41B45D0130040EF11 /* RadialBasisFunction.cpp */; };
@@ -222,6 +222,8 @@
 		DF0D899F1B4ACBCD00310672 /* GRTLeapInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRTLeapInput.h; sourceTree = "<group>"; };
 		DF0D89A11B4ACC3900310672 /* BeckonPrimitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BeckonPrimitive.cpp; sourceTree = "<group>"; };
 		DF0D89A21B4ACC3900310672 /* BeckonPrimitive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeckonPrimitive.h; sourceTree = "<group>"; };
+		DF0D89A51B4B11ED00310672 /* ofxLeapGestures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxLeapGestures.cpp; path = ../src/ofxLeapGestures.cpp; sourceTree = "<group>"; };
+		DF0D89A61B4B11ED00310672 /* ofxLeapGestures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxLeapGestures.h; path = ../src/ofxLeapGestures.h; sourceTree = "<group>"; };
 		DF49D76C45D5DB505A234880 /* ofxOscMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscMessage.cpp; path = ../../../addons/ofxOsc/src/ofxOscMessage.cpp; sourceTree = SOURCE_ROOT; };
 		DFE9003B1B45D6C00040EF11 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		DFE9003C1B45D6C00040EF11 /* GRTBot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GRTBot.cpp; sourceTree = "<group>"; };
@@ -721,6 +723,8 @@
 			children = (
 				DFE9FE981B45D0130040EF11 /* src */,
 				DFE9FE9B1B45D0130040EF11 /* libs */,
+				DF0D89A51B4B11ED00310672 /* ofxLeapGestures.cpp */,
+				DF0D89A61B4B11ED00310672 /* ofxLeapGestures.h */,
 			);
 			name = ofxLeapGestures;
 			sourceTree = "<group>";
@@ -1671,6 +1675,7 @@
 				DFE9001F1B45D0130040EF11 /* LeakyIntegrator.cpp in Sources */,
 				DFE9002B1B45D0130040EF11 /* DebugLog.cpp in Sources */,
 				DFE9FFEB1B45D0130040EF11 /* libsvm.cpp in Sources */,
+				DF0D89A71B4B11ED00310672 /* ofxLeapGestures.cpp in Sources */,
 				DFE9002F1B45D0130040EF11 /* LUDecomposition.cpp in Sources */,
 				DFE900091B45D0130040EF11 /* TimeSeriesClassificationSample.cpp in Sources */,
 				DFE900301B45D0130040EF11 /* MatrixDouble.cpp in Sources */,
@@ -1733,7 +1738,6 @@
 				DFE9001D1B45D0130040EF11 /* FIRFilter.cpp in Sources */,
 				DFE9FFD51B45D0130040EF11 /* WeakClassifier.cpp in Sources */,
 				DFE9003E1B45D6C00040EF11 /* GRTBot.cpp in Sources */,
-				DFE9FFD11B45D0130040EF11 /* ofxLeapMotion.cpp in Sources */,
 				DFE900141B45D0130040EF11 /* TimeDomainFeatures.cpp in Sources */,
 				DFE900071B45D0130040EF11 /* TimeSeriesClassificationData.cpp in Sources */,
 				DFE9FFDD1B45D0130040EF11 /* DecisionTreeTripleFeatureNode.cpp in Sources */,

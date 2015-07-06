@@ -17,8 +17,7 @@ int GetLeapWrapper::getInput() {
     controller.addListener(listener);
     
     // Keep this process running until Enter is pressed
-    std::cout << "Press Enter to quit..." << std::endl;
-    std::cin.get();
+    while(!stopped) { }
     
     return EXIT_SUCCESS;
 }
@@ -27,6 +26,8 @@ int GetLeapWrapper::stopInput() {
     
     // Remove the sample listener when done
     controller.removeListener(listener);
+    
+    
     
     return EXIT_SUCCESS;
 }
