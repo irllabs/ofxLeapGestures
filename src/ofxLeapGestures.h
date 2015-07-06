@@ -36,8 +36,10 @@ public:
                 leapWrapper->setRealtimeMode(true);
             }
             if(mode == RECORD_SAMPLES) {
-                leapWrapper->setCurrentClassID(false);
+                leapWrapper->setRealtimeMode(false);
             }
+            
+            leapWrapper->setCurrentClassID(currentClassID);
             
             leapWrapper->stopped = false;
             leapWrapper->getInput();

@@ -21,8 +21,8 @@ public:
     void setRealtimeMode(bool realtime);
     void connectStatusLabelCallback(void (^ myBlock) (string));
     GetLeapWrapper(bool realTime);
-    string getStatusString();
     
+    string getStatusString();
     bool stopped;
 
 private:

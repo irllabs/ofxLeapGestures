@@ -4,6 +4,7 @@ void ofApp::setup(){
     
     leapGestures.setup(false);
     leapGestures.setMode(LeapWrapperThread::CLASSIFY);
+    leapGestures.startRecording();
     
 }
 
