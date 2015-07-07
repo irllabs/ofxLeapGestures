@@ -25,9 +25,9 @@ public:
     string getStatusString();
     bool stopped;
 
-private:
     BeckonListener listener;
     Controller controller;
+    
 };
 
 

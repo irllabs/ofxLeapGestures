@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxLeapGestures.h"
+#include "ofxLeapMotion.h"
 
 class ofApp : public ofBaseApp{
 
@@ -11,8 +12,8 @@ class ofApp : public ofBaseApp{
 		void draw();
 
 		void keyReleased(int key);
-        void exit();
     
+        ofxLeapMotion leap;
         ofxLeapGestures leapGestures;
 		
 };

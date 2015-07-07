@@ -11,6 +11,7 @@
 
 #include "Global.h"
 #include "ofMain.h"
+#include "ofxLeapMotion.h"
 
 typedef void(^callBackFunctionPtrString)(string);
 
@@ -27,11 +28,13 @@ public:
     bool isAboveThreshold(Hand hand);
     LeapMotionFeature* loadFeature(LeapMotionFeature initialFeature, Hand hand);
     void processFeature(vector<LeapMotionFeature*> features, bool realtime);
+    void recieveNewLeapData(vector<Leap::Hand> hands);
     
     BeckonListener(bool realTime);
     BeckonListener();
     
     string statusString;
+    int handToTrack; // 0=right, 1=left
 
 private:
     int classID;

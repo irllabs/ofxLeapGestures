@@ -29,15 +29,100 @@ void BeckonListener::onDisconnect(const Controller& controller) {
     std::cout << "Disconnected" << std::endl;
 }
 
+void BeckonListener::recieveNewLeapData(vector<Leap::Hand> hands) {
+    
+    // Get the most recent frame and report some basic information
+    // Do that only when hands are present
+    
+    handToTrack = 0;
+    
+    // find the hand we want
+    int selectedHandIndex = -1;
+    for(int i = 0; i < hands.size(); i++) {
+        if(hands[i].isRight() && handToTrack == 0) {
+            selectedHandIndex = i;
+        }
+        if(hands[i].isLeft() && handToTrack == 1) {
+            selectedHandIndex = i;
+        }
+    }
+    
+    if (hands.size()>0 && selectedHandIndex != -1) {
+        
+        // Get need the hand we found earlier
+        const Hand hand = hands[selectedHandIndex];
+        bool aboveThreshold = isAboveThreshold(hand);
+        
+        // The hand should be moving beyond a base velocity to be recognized as a gesture
+        if (aboveThreshold && !recordingStarted)  {
+            
+            // If the recording hasnt' started, start and put the current frame as initial frame
+            recordingStarted = true;
+            
+            LeapMotionFeature fakeFeature(0);
+            initialFeature = loadFeature(fakeFeature, hand);
+            
+            //initialFrameID = leap->getCurrentFrameID();
+            previousFrameID = initialFrameID;
+            
+            //this->statusLabelCallback("RECORDING");
+            this->statusString = "RECORDING";
+            
+        } // end of if
+        
+        else if (aboveThreshold) { // && recordingStarted && getCurrentFrameID() == (previousFrameID + 1)
+            //If all conditions match, record this frame
+            
+            LeapMotionFeature* newFeature;
+            newFeature = loadFeature(*initialFeature, hand);
+            featureCache.push_back(newFeature);
+            
+            //snippet.push_back(frame);
+            
+            //previousFrameID = leap->getCurrentFrameID();
+            
+            std::cout << "Added new feature" << featureCache.size() << std::endl;
+        } // end of else if
+        
+        else if (!isAboveThreshold(hand) && recordingStarted)
+        {
+            //If hand moves below threshold speed, stop recording and save the snippet so far.
+            //If there are more than [leastNumberOfFrame] frame saved in the snippet, this snippet is valid
+            
+            std::cout << "Ended recording a sample" << std::endl;
+            
+            if (featureCache.size() > leastNumberOfFrames) {
+                processFeature(featureCache, realTimeMode);
+                featureCache.clear();
+            };
+            
+            recordingStarted = false;
+        } // end of else if
+    }
+    
+}
+
 void BeckonListener::onFrame(const Controller& controller) {
     // Get the most recent frame and report some basic information
     // Do that only when hands are present
     const Frame frame = controller.frame();
     HandList hands = frame.hands();
-    if (!hands.isEmpty()) {
+    
+    // find the hand we want
+    int selectedHandIndex = -1;
+    for(int i = 0; i < hands.count(); i++) {
+        if(hands[i].isRight() && handToTrack == 0) {
+            selectedHandIndex = i;
+        }
+        if(hands[i].isLeft() && handToTrack == 1) {
+            selectedHandIndex = i;
+        }
+    }
+    
+    if (!hands.isEmpty() && selectedHandIndex != -1) {
         
-        // We only need the first hand
-        const Hand hand = hands[0];
+        // Get need the hand we found earlier
+        const Hand hand = hands[selectedHandIndex];
         bool aboveThreshold = isAboveThreshold(hand);
         
         // The hand should be moving beyond a base velocity to be recognized as a gesture
@@ -68,7 +153,7 @@ void BeckonListener::onFrame(const Controller& controller) {
             
             previousFrameID = frame.id();
             
-            std::cout << "Added new feature" << std::endl;
+            std::cout << "Added new feature" << featureCache.size() << std::endl;
         } // end of else if
         
         else if (!isAboveThreshold(hand) && recordingStarted)
@@ -173,7 +258,7 @@ void BeckonListener::processFeature(vector<LeapMotionFeature*> features, bool re
     // For mode 1, apply classification
     if (realtime) {
         HMM hmm;
-        if( !hmm.loadModelFromFile(ofToDataPath("Model/HMMModel.grt")) ){
+        if( !hmm.loadModelFromFile(ofToDataPath("grt/Model/HMMModel.grt")) ){
             cout << "Failed to load the classifier model!\n";
         }
         else {

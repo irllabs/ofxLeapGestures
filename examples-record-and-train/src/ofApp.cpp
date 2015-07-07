@@ -5,7 +5,7 @@ void ofApp::setup(){
     leap.open();
     
     leapGestures.setup();
-    leapGestures.setClassifyMode();
+    leapGestures.setRecordSamplesMode();
     
 }
 
@@ -25,5 +25,9 @@ void ofApp::draw(){
 }
 
 void ofApp::keyReleased(int key){
+
+    if(key == 't') {
+        leapGestures.trainAndClassify();
+    }
     
 }

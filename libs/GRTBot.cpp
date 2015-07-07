@@ -12,7 +12,7 @@ int GRTBot::trainAndClassify() {
     //Get all the training data, and concat to one file
     vector<string> dataFiles;
    
-    DIR* dirFile = opendir( (ofToDataPath("Training/")).c_str() );
+    DIR* dirFile = opendir( (ofToDataPath("grt/Training/")).c_str() );
     if ( dirFile )
     {
         ofLog() << "ddd";
@@ -30,7 +30,7 @@ int GRTBot::trainAndClassify() {
             // you want here. Something like:
             if ( strstr( hFile->d_name, ".txt" )) {
                 printf( "found a .txt file: %s", hFile->d_name );
-                dataFiles.push_back(ofToDataPath("Training/") + hFile->d_name);
+                dataFiles.push_back(ofToDataPath("grt/Training/") + hFile->d_name);
             }
         } 
         closedir( dirFile );
@@ -90,13 +90,13 @@ int GRTBot::trainAndClassify() {
     }
     
     //Save the HMM model to a file
-    if( !hmm.save( ofToDataPath("Model/HMMModel.grt") ) ){
+    if( !hmm.save( ofToDataPath("grt/Model/HMMModel.grt") ) ){
         cout << "ERROR: Failed to save the model to a file!\n";
         return false;
     }
     
     //Load the HMM model from a file
-    if( !hmm.load( ofToDataPath("Model/HMMModel.grt") ) ){
+    if( !hmm.load( ofToDataPath("grt/Model/HMMModel.grt") ) ){
         cout << "ERROR: Failed to load the model from a file!\n";
         return false;
     }

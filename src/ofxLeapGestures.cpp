@@ -1,57 +1,42 @@
 #include "ofxLeapGestures.h"
 
-void ofxLeapGestures::setup(bool classifyMode) {
+void ofxLeapGestures::setup() {
     
-    leapWrapperThread.init();
+    leapWrapper = new GetLeapWrapper(false);
+    leapWrapper->setRealtimeMode(true);
+    leapWrapper->setCurrentClassID(0);
+    leapWrapper->stopped = false;
+    
     worker = new GRTBot();
-    recording = false;
     
 }
 
-void ofxLeapGestures::setMode(LeapWrapperThread::LGMode mode) {
+void ofxLeapGestures::recieveNewLeapData(vector<Leap::Hand> hands) {
     
-    leapWrapperThread.mode = mode;
+    leapWrapper->listener.recieveNewLeapData(hands);
+    
+}
+
+void ofxLeapGestures::setClassifyMode() {
+    
+    leapWrapper->setRealtimeMode(true);
+    
+}
+
+void ofxLeapGestures::setRecordSamplesMode() {
+    
+    leapWrapper->setRealtimeMode(false);
     
 }
 
 void ofxLeapGestures::setClassID(int id) {
     
-    leapWrapperThread.currentClassID = id;
+    leapWrapper->setCurrentClassID(id);
     
 }
 
 void ofxLeapGestures::trainAndClassify() {
     
     worker->trainAndClassify();
-    leapWrapperThread.stopThread();
-    
-}
-
-void ofxLeapGestures::startRecording() {
-    
-    recording = true;
-    
-    leapWrapperThread.startThread();
-    
-}
-
-void ofxLeapGestures::stopRecording() {
-    
-    recording = false;
-    
-    leapWrapperThread.stopInput();
-    leapWrapperThread.stopThread();
-    
-}
-
-bool ofxLeapGestures::isRecording() {
-    
-    return recording;
-    
-}
-
-void ofxLeapGestures::cleanup() {
-    
-    leapWrapperThread.stopThread();
     
 }
